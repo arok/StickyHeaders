@@ -7,4 +7,9 @@ public final class HeaderItem extends Item implements StickyHeader {
     public HeaderItem(String title, String message) {
         super(title, message);
     }
+
+    @Override
+    public boolean isSticky() {
+        return true;
+    }
 }

@@ -83,8 +83,10 @@ public class StickyGridLayoutManager extends GridLayoutManager {
             return;
         }
 
-        for (int i = 0; i < adapterData.size(); i++) {
-            if (adapterData.get(i) instanceof StickyHeader) {
+        Object item;
+        for (int i = 0, size = adapterData.size(); i < size; i++) {
+            item = adapterData.get(i);
+            if (item instanceof StickyHeader && ((StickyHeader) item).isSticky()) {
                 headerPositions.add(i);
             }
         }
