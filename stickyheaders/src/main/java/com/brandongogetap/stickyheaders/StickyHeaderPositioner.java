@@ -206,8 +206,6 @@ final class StickyHeaderPositioner {
         // Set to Invisible until we position it in #checkHeaderPositions.
         currentHeader.setVisibility(View.INVISIBLE);
         currentHeader.setId(R.id.header_view);
-        ViewGroup.LayoutParams layoutParams = currentHeader.getLayoutParams();
-        currentHeader.setTag(R.id.layout_params, layoutParams);
         getRecyclerParent().addView(currentHeader);
         if (checkMargins) {
             updateLayoutParams(currentHeader);
@@ -249,7 +247,6 @@ final class StickyHeaderPositioner {
     private void detachHeader(int position) {
         if (currentHeader != null) {
             getRecyclerParent().removeView(currentHeader);
-            currentHeader.setLayoutParams((ViewGroup.LayoutParams) currentHeader.getTag(R.id.layout_params));
             callDetach(position);
             currentHeader = null;
             currentViewHolder = null;
