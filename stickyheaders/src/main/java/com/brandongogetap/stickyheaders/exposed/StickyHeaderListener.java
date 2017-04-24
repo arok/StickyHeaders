@@ -2,10 +2,10 @@ package com.brandongogetap.stickyheaders.exposed;
 
 import android.view.View;
 
-import com.brandongogetap.stickyheaders.StickyLayoutManager;
+import com.brandongogetap.stickyheaders.StickyLinearLayoutManager;
 
 /**
- * A listener that can be set by calling {@link StickyLayoutManager#setStickyHeaderListener(StickyHeaderListener)}
+ * A listener that can be set by calling {@link StickyLinearLayoutManager#setStickyHeaderListener(StickyHeaderListener)}
  * <p>
  * As Sticky Header views are new instances of the same views that are shown in the RecyclerView,
  * this listener can be useful if there is state that needs to be transferred to the actual list

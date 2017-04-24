@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import com.brandongogetap.stickyheaders.ViewRetriever.RecyclerViewRetriever;
 import com.brandongogetap.stickyheaders.exposed.StickyHeader;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
@@ -16,7 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StickyLayoutManager extends LinearLayoutManager {
+public class StickyLinearLayoutManager extends LinearLayoutManager {
 
     private StickyHeaderPositioner positioner;
     private StickyHeaderHandler headerHandler;
@@ -26,12 +25,12 @@ public class StickyLayoutManager extends LinearLayoutManager {
     private int headerElevation = StickyHeaderPositioner.NO_ELEVATION;
     @Nullable private StickyHeaderListener listener;
 
-    public StickyLayoutManager(Context context, StickyHeaderHandler headerHandler) {
+    public StickyLinearLayoutManager(Context context, StickyHeaderHandler headerHandler) {
         this(context, VERTICAL, false, headerHandler);
         init(headerHandler);
     }
 
-    public StickyLayoutManager(Context context, int orientation, boolean reverseLayout, StickyHeaderHandler headerHandler) {
+    public StickyLinearLayoutManager(Context context, int orientation, boolean reverseLayout, StickyHeaderHandler headerHandler) {
         super(context, orientation, reverseLayout);
         init(headerHandler);
     }
@@ -44,7 +43,7 @@ public class StickyLayoutManager extends LinearLayoutManager {
      * Enable or disable elevation for Sticky Headers.
      * <p>
      * If you want to specify a specific amount of elevation, use
-     * {@link StickyLayoutManager#elevateHeaders(int)}
+     * {@link StickyLinearLayoutManager#elevateHeaders(int)}
      *
      * @param elevateHeaders Enable Sticky Header elevation. Default is false.
      */
