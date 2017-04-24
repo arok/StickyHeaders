@@ -59,10 +59,10 @@ final class StickyHeaderPositioner {
         this.headerPositions = headerPositions;
     }
 
-    void updateHeaderState(int firstVisiblePosition, Map<Integer, View> visibleHeaders,
-            ViewRetriever viewRetriever) {
-        int headerPositionToShow = getHeaderPositionToShow(
-                firstVisiblePosition, visibleHeaders.get(firstVisiblePosition));
+    void updateHeaderState(int firstVisiblePosition, Map<Integer, View> visibleHeaders, ViewRetriever viewRetriever) {
+        int headerPositionToShow =
+                getHeaderPositionToShow(firstVisiblePosition, visibleHeaders.get(firstVisiblePosition));
+
         View headerToCopy = visibleHeaders.get(headerPositionToShow);
         if (headerPositionToShow != lastBoundPosition || updateCurrentHeader) {
             if (headerPositionToShow == INVALID_POSITION) {
@@ -72,8 +72,7 @@ final class StickyHeaderPositioner {
             } else {
                 // We don't want to attach yet if header view is not at edge
                 if (checkMargins && headerAwayFromEdge(headerToCopy)) return;
-                RecyclerView.ViewHolder viewHolder =
-                        viewRetriever.getViewHolderForPosition(headerPositionToShow);
+                RecyclerView.ViewHolder viewHolder = viewRetriever.getViewHolderForPosition(headerPositionToShow);
                 attachHeader(viewHolder, headerPositionToShow);
                 lastBoundPosition = headerPositionToShow;
             }
@@ -256,13 +255,13 @@ final class StickyHeaderPositioner {
 
     private void callAttach(int position) {
         if (listener != null) {
-            listener.headerAttached(currentHeader, position);
+            listener.headerAttached(currentViewHolder, position);
         }
     }
 
     private void callDetach(int position) {
         if (listener != null) {
-            listener.headerDetached(currentHeader, position);
+            listener.headerDetached(currentViewHolder, position);
         }
     }
 

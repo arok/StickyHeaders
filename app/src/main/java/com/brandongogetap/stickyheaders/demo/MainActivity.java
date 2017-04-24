@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import com.brandongogetap.stickyheaders.StickyGridLayoutManager;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderListener;
 
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                return adapter.getAdapterData().get(position) instanceof HeaderItem ? 2 : 1;
+                return adapter.getItem(position) instanceof HeaderItem ? 2 : 1;
             }
         });
         layoutManager.elevateHeaders(true); // Default elevation of 5dp
@@ -37,12 +36,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         layoutManager.setStickyHeaderListener(new StickyHeaderListener() {
             @Override
-            public void headerAttached(View headerView, int adapterPosition) {
+            public void headerAttached(RecyclerView.ViewHolder headerView, int adapterPosition) {
                 Log.d("Listener", "Attached with position: " + adapterPosition);
             }
 
             @Override
-            public void headerDetached(View headerView, int adapterPosition) {
+            public void headerDetached(RecyclerView.ViewHolder headerView, int adapterPosition) {
                 Log.d("Listener", "Detached with position: " + adapterPosition);
             }
         });

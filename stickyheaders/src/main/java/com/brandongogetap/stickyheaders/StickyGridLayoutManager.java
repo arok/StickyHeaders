@@ -6,7 +6,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.brandongogetap.stickyheaders.ViewRetriever.RecyclerViewRetriever;
-import com.brandongogetap.stickyheaders.exposed.StickyHeader;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderListener;
 
@@ -71,22 +70,20 @@ public class StickyGridLayoutManager extends GridLayoutManager {
         super.onLayoutChildren(recycler, state);
         cacheHeaderPositions();
         positioner.reset(getOrientation(), findFirstVisibleItemPosition());
-        positioner.updateHeaderState(
-                findFirstVisibleItemPosition(), getVisibleHeaders(), viewRetriever);
+        positioner.updateHeaderState(findFirstVisibleItemPosition(), getVisibleHeaders(), viewRetriever);
     }
 
     private void cacheHeaderPositions() {
         headerPositions.clear();
-        List<?> adapterData = headerHandler.getAdapterData();
-        if (adapterData == null) {
+
+        int itemCount = headerHandler.getItemCount();
+        if (itemCount == 0) {
             positioner.setHeaderPositions(headerPositions);
             return;
         }
 
-        Object item;
-        for (int i = 0, size = adapterData.size(); i < size; i++) {
-            item = adapterData.get(i);
-            if (item instanceof StickyHeader && ((StickyHeader) item).isSticky()) {
+        for (int i = 0; i < itemCount; i++) {
+            if (headerHandler.isHeader(i)) {
                 headerPositions.add(i);
             }
         }
@@ -97,8 +94,7 @@ public class StickyGridLayoutManager extends GridLayoutManager {
     public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
         int scroll = super.scrollVerticallyBy(dy, recycler, state);
         if (Math.abs(scroll) > 0) {
-            positioner.updateHeaderState(
-                    findFirstVisibleItemPosition(), getVisibleHeaders(), viewRetriever);
+            positioner.updateHeaderState(findFirstVisibleItemPosition(), getVisibleHeaders(), viewRetriever);
         }
         return scroll;
     }
@@ -107,14 +103,15 @@ public class StickyGridLayoutManager extends GridLayoutManager {
     public int scrollHorizontallyBy(int dx, RecyclerView.Recycler recycler, RecyclerView.State state) {
         int scroll = super.scrollHorizontallyBy(dx, recycler, state);
         if (Math.abs(scroll) > 0) {
-            positioner.updateHeaderState(
-                    findFirstVisibleItemPosition(), getVisibleHeaders(), viewRetriever);
+            positioner.updateHeaderState(findFirstVisibleItemPosition(), getVisibleHeaders(), viewRetriever);
         }
         return scroll;
     }
 
+    private Map<Integer, View> visibleHeaders = new LinkedHashMap<>();
+
     private Map<Integer, View> getVisibleHeaders() {
-        Map<Integer, View> visibleHeaders = new LinkedHashMap<>();
+        visibleHeaders.clear();
 
         for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
