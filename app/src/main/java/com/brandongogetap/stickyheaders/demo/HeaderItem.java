@@ -1,15 +1,9 @@
 package com.brandongogetap.stickyheaders.demo;
 
-import com.brandongogetap.stickyheaders.exposed.StickyHeader;
-
-public final class HeaderItem extends Item implements StickyHeader {
+public final class HeaderItem extends Item {
 
     public HeaderItem(String title, String message) {
         super(title, message);
     }
 
-    @Override
-    public boolean isSticky() {
-        return true;
-    }
 }

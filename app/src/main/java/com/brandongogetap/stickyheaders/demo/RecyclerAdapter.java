@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.brandongogetap.stickyheaders.exposed.StickyHeader;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
 
 import java.util.List;
@@ -57,7 +56,7 @@ final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.BaseVie
         } else {
             holder.itemView.setPadding(0, 0, 0, 0);
         }
-        if (item instanceof StickyHeader) {
+        if (item instanceof HeaderItem) {
             holder.itemView.setBackgroundColor(Color.CYAN);
         } else {
             holder.itemView.setBackgroundColor(Color.TRANSPARENT);
@@ -75,8 +74,13 @@ final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.BaseVie
         return 0;
     }
 
-    @Override public List<?> getAdapterData() {
-        return data;
+    @Override
+    public boolean isHeader(int position) {
+        return data.get(position) instanceof HeaderItem;
+    }
+
+    public Object getItem(int position) {
+        return data.get(position);
     }
 
     private static final class MyViewHolder extends BaseViewHolder {
