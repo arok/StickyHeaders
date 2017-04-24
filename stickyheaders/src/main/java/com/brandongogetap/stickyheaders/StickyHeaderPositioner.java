@@ -9,9 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.view.ViewTreeObserver;
-
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderListener;
 
 import java.util.List;
@@ -208,7 +206,7 @@ final class StickyHeaderPositioner {
         currentHeader.setId(R.id.header_view);
         getRecyclerParent().addView(currentHeader);
         if (checkMargins) {
-            updateLayoutParams(currentHeader);
+            updatePaddings(currentHeader);
         }
         dirty = false;
     }
@@ -272,19 +270,14 @@ final class StickyHeaderPositioner {
      * supported. If you need to offset the top (or left in horizontal orientation) and do not
      * want scrolling children to be visible, use margins.
      */
-    private void updateLayoutParams(View currentHeader) {
-        MarginLayoutParams params = (MarginLayoutParams) currentHeader.getLayoutParams();
-        matchMarginsToPadding(params);
-    }
-
-    private void matchMarginsToPadding(MarginLayoutParams layoutParams) {
-        @Px int leftMargin = orientation == LinearLayoutManager.VERTICAL ?
+    private void updatePaddings(View currentHeader) {
+        @Px int leftPadding = orientation == LinearLayoutManager.VERTICAL ?
                 recyclerView.getPaddingLeft() : 0;
-        @Px int topMargin = orientation == LinearLayoutManager.VERTICAL ?
+        @Px int topPadding = orientation == LinearLayoutManager.VERTICAL ?
                 0 : recyclerView.getPaddingTop();
-        @Px int rightMargin = orientation == LinearLayoutManager.VERTICAL ?
+        @Px int rightPadding = orientation == LinearLayoutManager.VERTICAL ?
                 recyclerView.getPaddingRight() : 0;
-        layoutParams.setMargins(leftMargin, topMargin, rightMargin, 0);
+        currentHeader.setPadding(leftPadding, topPadding, rightPadding, 0);
     }
 
     private boolean headerAwayFromEdge(View headerToCopy) {
