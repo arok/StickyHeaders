@@ -2,10 +2,10 @@ package com.brandongogetap.stickyheaders.demo;
 
 import android.content.Context;
 
-import com.brandongogetap.stickyheaders.StickyLayoutManager;
+import com.brandongogetap.stickyheaders.StickyLinearLayoutManager;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
 
-public final class TopSnappedStickyLayoutManager extends StickyLayoutManager {
+public final class TopSnappedStickyLayoutManager extends StickyLinearLayoutManager {
 
     TopSnappedStickyLayoutManager(Context context, StickyHeaderHandler headerHandler) {
         super(context, headerHandler);

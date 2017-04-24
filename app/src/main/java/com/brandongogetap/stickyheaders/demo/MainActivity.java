@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.brandongogetap.stickyheaders.StickyLayoutManager;
+import com.brandongogetap.stickyheaders.StickyLinearLayoutManager;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderListener;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         List<Item> items = compileItems();
         RecyclerAdapter adapter = new RecyclerAdapter(items);
-        StickyLayoutManager layoutManager = new TopSnappedStickyLayoutManager(this, adapter);
+        StickyLinearLayoutManager layoutManager = new TopSnappedStickyLayoutManager(this, adapter);
         layoutManager.elevateHeaders(true); // Default elevation of 5dp
         // You can also specify a specific dp for elevation
 //        layoutManager.elevateHeaders(10);
