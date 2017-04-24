@@ -276,6 +276,11 @@ final class StickyHeaderPositioner {
         @Px int rightPadding = orientation == LinearLayoutManager.VERTICAL ?
                 recyclerView.getPaddingRight() : 0;
         currentHeader.setPadding(leftPadding, 0, rightPadding, 0);
+
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) currentHeader.getLayoutParams();
+        if (layoutParams != null) {
+            layoutParams.setMargins(0, 0, 0, 0);
+        }
     }
 
     private boolean headerAwayFromEdge(View headerToCopy) {
