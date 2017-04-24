@@ -2,11 +2,11 @@ package com.brandongogetap.stickyheaders.demo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-
-import com.brandongogetap.stickyheaders.StickyLinearLayoutManager;
+import com.brandongogetap.stickyheaders.StickyGridLayoutManager;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderListener;
 
 import java.util.ArrayList;
@@ -22,8 +22,14 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         List<Item> items = compileItems();
-        RecyclerAdapter adapter = new RecyclerAdapter(items);
-        StickyLinearLayoutManager layoutManager = new TopSnappedStickyLayoutManager(this, adapter);
+        final RecyclerAdapter adapter = new RecyclerAdapter(items);
+        StickyGridLayoutManager layoutManager = new TopSnappedStickyLayoutManager(this, adapter);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return adapter.getAdapterData().get(position) instanceof HeaderItem ? 2 : 1;
+            }
+        });
         layoutManager.elevateHeaders(true); // Default elevation of 5dp
         // You can also specify a specific dp for elevation
 //        layoutManager.elevateHeaders(10);
