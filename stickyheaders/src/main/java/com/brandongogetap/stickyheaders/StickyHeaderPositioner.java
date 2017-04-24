@@ -273,11 +273,9 @@ final class StickyHeaderPositioner {
     private void updatePaddings(View currentHeader) {
         @Px int leftPadding = orientation == LinearLayoutManager.VERTICAL ?
                 recyclerView.getPaddingLeft() : 0;
-        @Px int topPadding = orientation == LinearLayoutManager.VERTICAL ?
-                0 : recyclerView.getPaddingTop();
         @Px int rightPadding = orientation == LinearLayoutManager.VERTICAL ?
                 recyclerView.getPaddingRight() : 0;
-        currentHeader.setPadding(leftPadding, topPadding, rightPadding, 0);
+        currentHeader.setPadding(leftPadding, 0, rightPadding, 0);
     }
 
     private boolean headerAwayFromEdge(View headerToCopy) {
