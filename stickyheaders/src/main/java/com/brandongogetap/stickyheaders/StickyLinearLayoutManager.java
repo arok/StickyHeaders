@@ -158,4 +158,34 @@ public class StickyLinearLayoutManager extends LinearLayoutManager {
         positioner.setElevateHeaders(headerElevation);
         positioner.setListener(listener);
     }
+
+    @Override
+    public void onAdapterChanged(RecyclerView.Adapter oldAdapter, RecyclerView.Adapter newAdapter) {
+        super.onAdapterChanged(oldAdapter, newAdapter);
+
+        if (oldAdapter != null) {
+            oldAdapter.unregisterAdapterDataObserver(mAdapterDataObserver);
+        }
+
+        if (newAdapter != null) {
+            newAdapter.registerAdapterDataObserver(mAdapterDataObserver);
+        }
+    }
+
+    @Override
+    public void onItemsChanged(RecyclerView recyclerView) {
+        super.onItemsChanged(recyclerView);
+        if (positioner != null) {
+            positioner.clearHeader();
+        }
+    }
+
+    private RecyclerView.AdapterDataObserver mAdapterDataObserver = new RecyclerView.AdapterDataObserver() {
+        @Override
+        public void onChanged() {
+            if (positioner != null) {
+                positioner.clearHeader();
+            }
+        }
+    };
 }
